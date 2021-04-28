@@ -83,7 +83,7 @@ final class HomeViewController: UIViewController {
     //Constantes
     private let kdecimalSeparator = Locale.current.decimalSeparator!
     private let kMaxLenght = 9
-    private let kMaxValue: Double = 999999999
+    private let kMaxValue: Double = 9999999999
     private let kMinValue: Double = 0.00000001
     
     //Constantes
