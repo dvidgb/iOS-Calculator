@@ -71,6 +71,52 @@ final class HomeViewController: UIViewController {
     @IBOutlet weak var operatorDivison: UIButton!
     
     
+    //Variables
+    
+    private var total: Double = 0 //Total
+    private var temp: Double = 0 //Valor temporal mostrado por la label
+    private var operating  = false //Indica si se ha seleccionado un operador
+    private var decimal = false //Indica si el valor es decimal
+    private var operation: OperationType = .none //Operación actual
+    
+    
+    //Constantes
+    private let kdecimalSeparator = Locale.current.decimalSeparator!
+    private let kMaxLenght = 9
+    private let kMaxValue: Double = 999999999
+    private let kMinValue: Double = 0.00000001
+    
+    //Constantes
+    private enum OperationType{
+        case none,addition,substraction,multiplication, division, percent
+    }
+    
+    //Formateo de valores auxiliar
+    private let auxFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        let locale = Locale.current
+        formatter.groupingSeparator = ""
+        formatter.decimalSeparator = locale.decimalSeparator
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
+    
+    
+    //Formateo de valores por pantalla por defecto
+    private let printFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        let locale = Locale.current
+        formatter.groupingSeparator = locale.groupingSeparator
+        formatter.decimalSeparator = locale.decimalSeparator
+        formatter.numberStyle = .decimal
+        formatter.maximumIntegerDigits = 9
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 8
+        
+        return formatter
+    }()
+    
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -98,7 +144,9 @@ final class HomeViewController: UIViewController {
         operatorSubstraction.round()
         operatorMultiplication.round()
         operatorPlusMinus.round()
+    
         
+        numberDecimal.setTitle(kdecimalSeparator, for: .normal)
         
         
     }
