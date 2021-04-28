@@ -148,6 +148,8 @@ final class HomeViewController: UIViewController {
         
         numberDecimal.setTitle(kdecimalSeparator, for: .normal)
         
+        result() //se llama a la función resultado
+        
         
     }
 
@@ -204,6 +206,55 @@ final class HomeViewController: UIViewController {
     }
     
     
+    // Limpia los valores
+    
+    private func clear(){
+        operation = .none
+        operatorAC.setTitle("AC", for: .normal)
+        if temp  != 0 {
+            temp = 0
+            resultLabel.text = "0"
+        }else{
+            total = 0
+            result()
+        }
+    }
+    
+    //Obtine el resultado final
+    
+    private func result(){
+        
+        switch operation {
+            
+        case .none:
+            //No hacemos nada
+            break
+        case .addition:
+            total = total + temp
+            break
+        case .substraction:
+            total =  total - temp
+            break
+        case .multiplication:
+            total = total * temp
+            break
+        case .division:
+            total = total / temp
+            break
+        case .percent:
+            temp = temp / 100
+            total = temp
+            break
+        }
+        
+        //Formateo por pantalla
+        
+        if total <= kMaxValue || total >= kMinValue{
+            resultLabel.text = printFormatter.string(from: NSNumber(value: total))
+        }
+        
+        print("Total: \(total)")
+    }
     
     
 }
