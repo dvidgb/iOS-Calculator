@@ -256,6 +256,41 @@ final class HomeViewController: UIViewController {
     
     
     @IBAction func numberAction(_ sender: UIButton) {
+        
+        
+        operatorAC.setTitle("C", for: .normal)
+        
+        var currentTemp = auxFormatter.string(from: NSNumber(value: temp))!
+        
+        
+        if !operating && currentTemp.count >= kMaxLenght {
+            return
+        }
+        
+        //Hemos seleccinado una operación
+        if operating {
+            total = total == 0 ? temp : total
+            
+            resultLabel.text  = ""
+            
+            currentTemp = ""
+            
+            operating = false
+            
+        }
+        
+        //Hemos selecccionado decimales
+        if decimal {
+            currentTemp = "\(currentTemp)\(kdecimalSeparator)"
+            decimal = false
+        }
+        
+        let number = sender.tag
+        
+        temp = Double(currentTemp + String(number))!
+        
+        resultLabel.text = printFormatter.string(from: NSNumber(value: temp))
+        
         sender.shine()
         print(sender.tag)
     }
